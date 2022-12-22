@@ -122,7 +122,7 @@ class FilePickerWeb extends FilePicker {
       }
     }
 
-    void cancelledEventListener(_) {
+    void cancelledEventListener(event) {
       window.removeEventListener('focus', cancelledEventListener);
 
       // This listener is called before the input changed event,
@@ -139,13 +139,13 @@ class FilePickerWeb extends FilePicker {
     uploadInput.onChange.listen(changeEventListener);
     uploadInput.addEventListener('change', changeEventListener);
 
-    // Listen focus event for cancelled
-    window.addEventListener('focus', cancelledEventListener);
-
     //Add input element to the page body
     _target.children.clear();
     _target.children.add(uploadInput);
     uploadInput.click();
+
+    // Listen focus event for cancelled
+    window.addEventListener('focus', cancelledEventListener);
 
     final List<PlatformFile>? files = await filesCompleter.future;
 
